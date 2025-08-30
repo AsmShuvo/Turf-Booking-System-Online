@@ -10,3 +10,11 @@ export async function createUser(username, email, password) {
   );
   return result.insertId;
 }
+
+export async function getUserByEmail(email) {
+  const [rows] = await pool.execute(
+    "SELECT id, username, email, password FROM users WHERE email = ? LIMIT 1",
+    [email]
+  );
+  return rows[0] || null;
+}
